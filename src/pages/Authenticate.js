@@ -1,6 +1,7 @@
 import { useState } from "react";
+import {setCookie} from "../components/MyCookie";
 
-export default function CreateUserForm() {
+export default function Authenticate() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -9,22 +10,21 @@ export default function CreateUserForm() {
         e.preventDefault();
         setMessage("");
 
-        // Кодирование пароля в base64 (имитация bytea[] для отправки)
-        const encodedPassword = btoa(password);
-
-        const user = { login, password: encodedPassword };
+        const user = { login, password };
 
         try {
-            const response = await fetch("http://localhost:8080/api/users/createUser", {
+            const response = await fetch("http://localhost:8080/api/auth/authenticate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(user),
             });
 
             if (!response.ok) {
-                throw new Error("Ошибка при создании пользователя");
+                throw new Error("Неверный пароль или логин");
             }
-            setMessage("Пользователь успешно создан!");
+            let token = await response.text();
+            setCookie("token", token, 1);
+            setMessage("Успешная аунтефикация!");
             setLogin("");
             setPassword("");
         } catch (error) {
@@ -34,11 +34,11 @@ export default function CreateUserForm() {
 
     return (
         <div className="p-4">
-            <h2 className="text-xl font-bold mb-2">Создать пользователя</h2>
+            <h2 className="text-xl font-bold mb-2">Войти</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="text" placeholder="Логин" value={login} onChange={(e) => setLogin(e.target.value)} required/>
                 <input type="password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                <button type="submit">Создать</button>
+                <button type="submit">Войти</button>
             </form>
             {message && <p className="mt-2 text-red-500">{message}</p>}
         </div>
