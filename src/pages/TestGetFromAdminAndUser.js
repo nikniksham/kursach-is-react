@@ -1,5 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
 import {getCookie} from "../components/MyCookie";
+import Layout from "./Layout";
 
 export default function TestGetFromAdminAndUser() {
     const [fromAdmin, setFromAdmin] = useState("Не спрашивал");
@@ -42,11 +43,15 @@ export default function TestGetFromAdminAndUser() {
     };
 
     return (
-        <div className="p-4">
-            <p>Ответ от админа: {fromAdmin}</p><br/>
-            <button onClick={subminAdmin}>Запрос админу</button><br/>
-            <p>Ответ от юзера: {fromUser}</p><br/>
-            <button onClick={submitUser}>Запрос юзеру</button><br/>
-        </div>
+        <Layout>
+            <div className="p-4">
+                <p>Ответ от админа: {fromAdmin}</p><br/>
+                <button onClick={subminAdmin}>Запрос админу</button>
+                <br/>
+                <p>Ответ от юзера: {fromUser}</p><br/>
+                <button onClick={submitUser}>Запрос юзеру</button>
+                <br/>
+            </div>
+        </Layout>
     );
 }

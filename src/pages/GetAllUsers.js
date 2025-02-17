@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react"
-import { Link } from "react-router-dom";
+import {useState} from "react"
+import {Link} from "react-router-dom";
+import Layout from "./Layout";
 
 export default function GetAllUsers() {
     const [users, setUsers] = useState([]);
@@ -25,35 +26,37 @@ export default function GetAllUsers() {
     };
 
     return (
-        <div className="p-4">
-            <h1>Все юзеры:</h1>
-            <Link to="/" className="text-blue-500 underline">
-                Вернуться на главную
-            </Link><br/>
-            <button onClick={fetchUsers} disabled={loading}>
-                {loading ? "Загрузка..." : "Загрузить пользователей"}
-            </button>
+        <Layout>
+            <div className="p-4">
+                <h1>Все юзеры:</h1>
+                <Link to="/" className="text-blue-500 underline">
+                    Вернуться на главную
+                </Link><br/>
+                <button onClick={fetchUsers} disabled={loading}>
+                    {loading ? "Загрузка..." : "Загрузить пользователей"}
+                </button>
 
-            {error && <p className="text-red-500 mt-2">Ошибка: {error}</p>}
-            {users.length > 0 && (
-                <table className="mt-4 w-full border">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Логин</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                {error && <p className="text-red-500 mt-2">Ошибка: {error}</p>}
+                {users.length > 0 && (
+                    <table className="mt-4 w-full border">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Логин</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         {users.map((user) => (
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.login}</td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
-            )}
+                        </tbody>
+                    </table>
+                )}
 
-        </div>
+            </div>
+        </Layout>
     );
 }
