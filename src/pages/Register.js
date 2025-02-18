@@ -1,10 +1,18 @@
 import {useState} from "react";
 import Layout from "./Layout";
+import {useNavigate} from "react-router-dom";
 
 export default function Register() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
+
+    const goToLogin = async (e) => {
+        navigate('/login');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,6 +21,9 @@ export default function Register() {
         const user = {login, password};
 
         try {
+            if (password !== password2) {
+                throw new Error("Пароли не совпадают")
+            }
             const response = await fetch("http://localhost:8080/api/auth/register", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -25,6 +36,7 @@ export default function Register() {
             setMessage("Регистрация прошла успешно!");
             setLogin("");
             setPassword("");
+            navigate("/login")
         } catch (error) {
             setMessage(error.message);
         }
@@ -39,8 +51,11 @@ export default function Register() {
                            required/>
                     <input type="password" placeholder="Пароль" value={password}
                            onChange={(e) => setPassword(e.target.value)} required/>
+                    <input type="password" placeholder="Пароль повторно" value={password2}
+                           onChange={(e) => setPassword2(e.target.value)} required/>
                     <button type="submit">Зарегистрироваться</button>
                 </form>
+                <button onClick={goToLogin}>Войти</button>
                 {message && <p className="mt-2 text-red-500">{message}</p>}
             </div>
         </Layout>

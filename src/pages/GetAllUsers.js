@@ -2,6 +2,7 @@ import React from "react";
 import {useState} from "react"
 import {Link} from "react-router-dom";
 import Layout from "./Layout";
+import {getCookie} from "../components/MyCookie";
 
 export default function GetAllUsers() {
     const [users, setUsers] = useState([]);
@@ -12,14 +13,27 @@ export default function GetAllUsers() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("http://localhost:8080/api/users");
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/admin/user/all", {
+                method: "GET",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+
             if (!response.ok) {
-                throw new Error("Ошибка при загрузке пользователей");
+                throw new Error("Нет прав на это");
             }
             const data = await response.json();
+            data.forEach((elem) => {
+                let roles = []
+                elem["roles"].forEach((role) => {
+                    roles.push(role.id)
+                })
+                elem["ro"] = roles
+            })
             setUsers(data);
-        } catch (err) {
-            setError(err.message);
+            console.log(data)
+        } catch (error) {
+            setError(error.message);
         } finally {
             setLoading(false);
         }
@@ -43,6 +57,9 @@ export default function GetAllUsers() {
                         <tr>
                             <th>ID</th>
                             <th>Логин</th>
+                            <th>Права специалиста</th>
+                            <th>Права модератора</th>
+                            <th>Права админа</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,6 +67,9 @@ export default function GetAllUsers() {
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.login}</td>
+                                <td>{user["ro"].includes(4) ? (<p>✅</p>) : (<p>❌</p>)}</td>
+                                <td>{user["ro"].includes(2) ? (<p>✅</p>) : (<p>❌</p>)}</td>
+                                <td>{user["ro"].includes(3) ? (<p>✅</p>) : (<p>❌</p>)}</td>
                             </tr>
                         ))}
                         </tbody>

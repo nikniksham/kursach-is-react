@@ -1,11 +1,18 @@
 import {useState} from "react";
 import {setCookie} from "../components/MyCookie";
 import Layout from "./Layout";
+import {useNavigate} from "react-router-dom";
 
-export default function Authenticate() {
+export default function Login() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
+
+    const goToReg = async (e) => {
+        navigate('/register');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +35,7 @@ export default function Authenticate() {
             setMessage("Успешная аунтефикация!");
             setLogin("");
             setPassword("");
+            navigate("/")
         } catch (error) {
             setMessage(error.message);
         }
@@ -44,6 +52,7 @@ export default function Authenticate() {
                            onChange={(e) => setPassword(e.target.value)} required/>
                     <button type="submit">Войти</button>
                 </form>
+                <button onClick={goToReg}>Зарегистрироваться</button>
                 {message && <p className="mt-2 text-red-500">{message}</p>}
             </div>
         </Layout>

@@ -9,16 +9,10 @@ export default function Home() {
         <Layout>
             <div>
                 <h1>Домашняя страница</h1>
-                <Link to="/GetAllUsers" className="text-blue-500 underline">
+                <Link to="/getAllUsers" className="text-blue-500 underline">
                     Посмотреть пользователей
                 </Link><br/>
-                <Link to="/Register" className="text-blue-500 underline">
-                    Зарегистрироваться
-                </Link><br/>
-                <Link to="/Authenticate" className="text-blue-500 underline">
-                    Войти
-                </Link><br/>
-                <Link to="/TestGetFromAdminAndUser" className="text-blue-500 underline">
+                <Link to="/test" className="text-blue-500 underline">
                     Тесты
                 </Link><br/>
                 {zn}
