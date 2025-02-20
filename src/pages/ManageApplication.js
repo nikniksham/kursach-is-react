@@ -20,6 +20,7 @@ export default function ManageApplication() {
             navigate("/login")
         }
         getApplication()
+        getComment()
     }, [navigate, token])
 
     const getApplication = async () => {
@@ -32,6 +33,21 @@ export default function ManageApplication() {
             const data = await response.json();
             // console.log(data)
             setApplication(data)
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const getComment = async () => {
+        try {
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/admin/comment/getById?application_id=" + application_id, {
+                method: "GET",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.json();
+            setWhyNot(data.text)
+            // setApplication(data)
         } catch (error) {
             setError(error.message);
         }

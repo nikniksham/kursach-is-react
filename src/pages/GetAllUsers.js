@@ -48,6 +48,37 @@ export default function GetAllUsers() {
         }
     };
 
+    const deleteRole = async (user_id, role_id) => {
+        // console.log("DELETE")
+        setError(null);
+        try {
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/admin/user/deleteRole?user_id="+user_id+"&role_id="+role_id, {
+                method: "POST",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.text();
+            setError(data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+    const assignRole = async (user_id, role_id) => {
+        // console.log("ASSIGN")
+        setError(null);
+        try {
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/admin/user/assignRole?user_id="+user_id+"&role_id="+role_id, {
+                method: "POST",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.text();
+            setError(data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
     return (
         <Layout>
             <div className="p-4">
@@ -55,8 +86,11 @@ export default function GetAllUsers() {
                 <Link to="/adminPanel" className="text-blue-500 underline">
                     Вернуться в админскую панель
                 </Link><br/>
+                <button onClick={fetchUsers} className="text-blue-500 underline">
+                    Обновить список
+                </button><br/>
 
-                {error && <p className="text-red-500 mt-2">Ошибка: {error}</p>}
+                {error && <p className="text-red-500 mt-2">Результат: {error}</p>}
                 {users.length > 0 && (
                     <table className="mt-4 w-full border">
                         <thead>
@@ -73,9 +107,9 @@ export default function GetAllUsers() {
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.login}</td>
-                                <td>{user["ro"].includes(4) ? (<p>✅</p>) : (<p>❌</p>)}</td>
-                                <td>{user["ro"].includes(2) ? (<p>✅</p>) : (<p>❌</p>)}</td>
-                                <td>{user["ro"].includes(3) ? (<p>✅</p>) : (<p>❌</p>)}</td>
+                                <td>{user["ro"].includes(4) ? (<button onClick={() => deleteRole(user.id, 4)}>✅</button>) : (<button onClick={() => assignRole(user.id, 4)}>❌</button>)}</td>
+                                <td>{user["ro"].includes(2) ? (<button onClick={() => deleteRole(user.id, 2)}>✅</button>) : (<button onClick={() => assignRole(user.id, 2)}>❌</button>)}</td>
+                                <td>{user["ro"].includes(3) ? (<button onClick={() => deleteRole(user.id, 3)}>✅</button>) : (<button onClick={() => assignRole(user.id, 3)}>❌</button>)}</td>
                             </tr>
                         ))}
                         </tbody>

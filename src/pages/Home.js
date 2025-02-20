@@ -15,6 +15,15 @@ export default function Home() {
                 <Link to="/test" className="text-blue-500 underline">
                     Тесты
                 </Link><br/>
+                <Link to="/createOrder" className="text-blue-500 underline">
+                    Создать заказ
+                </Link><br/>
+                <Link to="/getAllOrders" className="text-blue-500 underline">
+                    Посмотреть заказы
+                </Link><br/>
+                <Link to="/getAllOrdersModer" className="text-blue-500 underline">
+                    Посмотреть заказы (moder)
+                </Link><br/>
                 {zn}
             </div>
         </Layout>

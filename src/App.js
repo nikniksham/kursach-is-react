@@ -13,6 +13,13 @@ import GetAllApplications from "./pages/GetAllApplications";
 import AdminPanel from "./pages/AdminPanel";
 import ShowApplicationLogs from "./pages/ShowApplicationLogs";
 import ManageApplication from "./pages/ManageApplication";
+import CreateOrders from "./pages/CreateOrders";
+import GetAllOrders from "./pages/getAllOrders";
+import GetAllOrdersModer from "./pages/GetAllOrdersModer";
+import ExploreOrderModer from "./pages/ExploreOrderModer";
+import ExploreOrder from "./pages/ExploreOrder";
+import ShowOrderLogs from "./pages/ShowOrderLogs";
+import ShowMyOrder from "./pages/ShowMyOrder";
 
 function App() {
     return (
@@ -31,6 +38,13 @@ function App() {
                 <Route path="/adminPanel" element={<AdminPanel/>} />
                 <Route path="/showApplicationLogs/:application_id" element={<ShowApplicationLogs/>} />
                 <Route path="/manageApplication/:application_id" element={<ManageApplication/>} />
+                <Route path="/createOrder" element={<CreateOrders/>} />
+                <Route path="/getAllOrders" element={<GetAllOrders/>} />
+                <Route path="/getAllOrdersModer" element={<GetAllOrdersModer/>} />
+                <Route path="/exploreOrderModer/:order_id" element={<ExploreOrderModer/>} />
+                <Route path="/exploreOrder/:order_id" element={<ExploreOrder/>} />
+                <Route path="/showOrderLogs/:order_id" element={<ShowOrderLogs/>} />
+                <Route path="/showMyOrder/:order_id" element={<ShowMyOrder/>} />
             </Routes>
         </Router>
     );
