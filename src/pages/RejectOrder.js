@@ -4,7 +4,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import Layout from "./Layout";
 import {getCookie} from "../components/MyCookie";
 
-export default function ExploreOrder() {
+export default function RejectOrder() {
     const [order, setOrder] = useState(null);
     const [message, setMessage] = useState(false);
     const [error, setError] = useState(null);
@@ -21,27 +21,49 @@ export default function ExploreOrder() {
         7: "🗑",
     }
 
+    let token = getCookie("token")
+    const navigate = useNavigate();
     useEffect(() => {
+        if (token == null) {
+            navigate("/login")
+        }
         getOrder()
-    }, [order_id])
+    }, [navigate, token])
 
     const getOrder = async () => {
         setError(null)
         setMessage(null)
         try {
-            const response = await fetch("http://localhost:8080/api/guest/orders/getById?order_id=" + order_id, {
+            const response = await fetch("http://localhost:8080/api/special/orders/getById?order_id=" + order_id, {
                 method: "GET",
+                headers: {Authorization: `Bearer ${token}`}
             });
             const data = await response.json();
             setOrder(data)
         } catch (error) {
-            setError(error.message);
+            setError("Тише, ковбой, задача выполнена");
+        }
+    };
+
+    const finishOrder = async () => {
+        setError(null)
+        setMessage(null)
+        try {
+            const response = await fetch("http://localhost:8080/api/special/orders/reject?order_id=" + order_id, {
+                method: "GET",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.json();
+            setOrder(data)
+        } catch (error) {
+            // setError(error.message);
         }
     };
 
     return (
         <Layout>
             <div className="p-4">
+                <h1>Все логи:</h1>
                 {order != null ? (
                     <h1>Заказ # {order.id}</h1>
                 ) : null}
@@ -56,6 +78,7 @@ export default function ExploreOrder() {
                         <p>Номер ису цели: {order.target_isu_num}</p>
                         <p>Имя цели: {order.target_name}</p>
                         <p>Текст заказа: {order.description}</p>
+                        <button onClick={finishOrder}>Подтверждаю отказ ❌</button>
                     </div>
                 ) : null
                 }

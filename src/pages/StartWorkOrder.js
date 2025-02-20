@@ -4,7 +4,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import Layout from "./Layout";
 import {getCookie} from "../components/MyCookie";
 
-export default function FinishOrder() {
+export default function StartWorkOrder() {
     const [order, setOrder] = useState(null);
     const [message, setMessage] = useState(false);
     const [error, setError] = useState(null);
@@ -15,8 +15,10 @@ export default function FinishOrder() {
         1: "🕘",
         2: "❌",
         3: "👷‍",
-        4: "✅",
-        5: "🗑",
+        4: "🛠",
+        5: "❓",
+        6: "✅",
+        7: "🗑",
     }
 
     let token = getCookie("token")
@@ -39,22 +41,22 @@ export default function FinishOrder() {
             const data = await response.json();
             setOrder(data)
         } catch (error) {
-            setError(error.message);
+            setError("Тише, ковбой, задача взята в работу");
         }
     };
 
-    const finishOrder = async () => {
+    const startWorkOrder = async () => {
         setError(null)
         setMessage(null)
         try {
-            const response = await fetch("http://localhost:8080/api/special/orders/finish?order_id=" + order_id, {
+            const response = await fetch("http://localhost:8080/api/special/orders/startWork?order_id=" + order_id, {
                 method: "GET",
                 headers: {Authorization: `Bearer ${token}`}
             });
             const data = await response.json();
             setOrder(data)
         } catch (error) {
-            setError(error.message);
+            // setError(error.message);
         }
     };
 
@@ -76,7 +78,7 @@ export default function FinishOrder() {
                         <p>Номер ису цели: {order.target_isu_num}</p>
                         <p>Имя цели: {order.target_name}</p>
                         <p>Текст заказа: {order.description}</p>
-                        <button onClick={finishOrder}>Подтверждаю выполнение ✅</button>
+                        <button onClick={startWorkOrder}>Начинаю работу 🛠</button>
                     </div>
                 ) : null
                 }

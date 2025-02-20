@@ -31,7 +31,7 @@ export default function ManageApplication() {
                 headers: {Authorization: `Bearer ${token}`}
             });
             const data = await response.json();
-            // console.log(data)
+            console.log(data)
             setApplication(data)
         } catch (error) {
             setError(error.message);
@@ -49,7 +49,7 @@ export default function ManageApplication() {
             setWhyNot(data.text)
             // setApplication(data)
         } catch (error) {
-            setError(error.message);
+            // setError(error.message);
         }
     };
 
@@ -91,12 +91,14 @@ export default function ManageApplication() {
     return (
         <Layout>
             <div className="p-4">
-                <h1>Все логи:</h1>
-                <Link to="/adminPanel" className="text-blue-500 underline">
-                    Вернуться в админскую панель
+                {application !== null ? (
+                    <h3>Просмотр заявки на {application.roles.name}:</h3>
+                ) : null}
+                <Link to="/getAllApplications" className="text-blue-500 underline">
+                    Вернуться ко всем заявкам
                 </Link><br/>
 
-                {application != null ? (
+                {application !== null ? (
                         <div>
                             <p>Просящий: {application.user.login}</p>
                             <p>Статус заявки: {application.statusApplications.status}</p>

@@ -16,10 +16,12 @@ export default function AdminPanel() {
         if (token == null) {
             navigate("/login")
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        decodedPayload = JSON.parse(atob(token.split('.')[1]));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        roles = decodedPayload.roles
+        try {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            decodedPayload = JSON.parse(atob(token.split('.')[1]));
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            roles = decodedPayload.roles
+        } catch (error) {}
         if (!roles.includes("ROLE_ADMIN") && !roles.includes("ROLE_MODER")) {
             navigate("/")
         }

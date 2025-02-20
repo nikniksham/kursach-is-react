@@ -19,8 +19,10 @@ export default function ExploreOrderModer() {
         1: "🕘",
         2: "❌",
         3: "👷‍",
-        4: "✅",
-        5: "🗑",
+        4: "🛠",
+        5: "❓",
+        6: "✅",
+        7: "🗑",
     }
 
     useEffect(() => {
@@ -57,7 +59,7 @@ export default function ExploreOrderModer() {
             setWhyNot(data.text)
             // setApplication(data)
         } catch (error) {
-            setError(error.message);
+            // setError(error.message);
         }
     };
 
@@ -92,6 +94,34 @@ export default function ExploreOrderModer() {
         }
     };
 
+    const makeOrderOk = async () => {
+        try {
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/moder/orders/makeOk?order_id=" + order_id + "&why_not=" + whyNot, {
+                method: "POST",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.text();
+            setMessage(data)
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const makeOrderBad = async () => {
+        try {
+            let token = getCookie("token");
+            const response = await fetch("http://localhost:8080/api/moder/orders/makeBad?order_id=" + order_id, {
+                method: "POST",
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            const data = await response.text();
+            setMessage(data)
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
     return (
         <Layout>
             <div className="p-4">
@@ -115,6 +145,12 @@ export default function ExploreOrderModer() {
                                           onChange={(e) => setWhyNot(e.target.value)}/>
                                 <button onClick={rejectOrder}>Отклонить</button>
                                 <button onClick={approveOrder}>Принять</button>
+                            </div>
+                        ) : null}
+                        {[5].includes(order.statusOrders.id) ? (
+                            <div>
+                                <button onClick={makeOrderOk}>Подтвердить выполнение ✅</button>
+                                <button onClick={makeOrderBad}>Отказать ❌</button>
                             </div>
                         ) : null}
                     </div>

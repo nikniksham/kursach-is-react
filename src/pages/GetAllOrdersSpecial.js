@@ -12,8 +12,10 @@ export default function GetAllOrdersSpecial() {
         1: "🕘",
         2: "❌",
         3: "👷‍",
-        4: "✅",
-        5: "🗑",
+        4: "🛠",
+        5: "❓",
+        6: "✅",
+        7: "🗑",
     }
 
     let token = getCookie("token")
@@ -59,7 +61,7 @@ export default function GetAllOrdersSpecial() {
                             <th>Имя цели</th>
                             <th>Статус заказа</th>
                             <th>Посмотреть подробнее</th>
-                            <th>Подтвердить выполнение</th>
+                            <th>Начать работать</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,8 +77,8 @@ export default function GetAllOrdersSpecial() {
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/finishOrder/${order.id}`} className="text-blue-500 underline">
-                                        Указать выполнение
+                                    <Link to={`/startWorkOrder/${order.id}`} className="text-blue-500 underline">
+                                        Начать работать
                                     </Link>
                                 </td>
                             </tr>

@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import {getCookie} from "../components/MyCookie";
 import {Link, useNavigate} from "react-router-dom";
 
-export default function GetAllOrdersModer() {
+export default function WatchWhatIDo() {
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
 
@@ -30,7 +30,7 @@ export default function GetAllOrdersModer() {
     const getAllOrders = async () => {
         setError(null);
         try {
-            const response = await fetch("http://localhost:8080/api/moder/orders/all", {
+            const response = await fetch("http://localhost:8080/api/special/orders/what_i_do", {
                 method: "GET",
                 headers: {Authorization: `Bearer ${token}`}
             });
@@ -61,7 +61,8 @@ export default function GetAllOrdersModer() {
                             <th>Имя цели</th>
                             <th>Статус заказа</th>
                             <th>Посмотреть подробнее</th>
-                            <th>Посмотреть логи</th>
+                            <th>Отказаться от выполнения</th>
+                            <th>Подтвердить выполнение</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,13 +73,18 @@ export default function GetAllOrdersModer() {
                                 <td>{order.target_name}</td>
                                 <td>{order.statusOrders.status + " >>> " + statusi[order.statusOrders.id]}</td>
                                 <td>
-                                    <Link to={`/exploreOrderModer/${order.id}`} className="text-blue-500 underline">
+                                    <Link to={`/exploreOrder/${order.id}`} className="text-blue-500 underline">
                                         Подробнее
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/showOrderLogs/${order.id}`} className="text-blue-500 underline">
-                                        Посмотреть логи
+                                    <Link to={`/rejectOrder/${order.id}`} className="text-blue-500 underline">
+                                        Отказаться от выполнения
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link to={`/finishOrder/${order.id}`} className="text-blue-500 underline">
+                                        Указать выполнение
                                     </Link>
                                 </td>
                             </tr>

@@ -25,7 +25,13 @@ export default function Home() {
                     Посмотреть заказы (moder)
                 </Link><br/>
                 <Link to="/getAllOrdersSpecial" className="text-blue-500 underline">
-                    Посмотреть заказы (special)
+                    Взять заказы (special)
+                </Link><br/>
+                <Link to="/watchWhatIDo" className="text-blue-500 underline">
+                    Посмотреть заказы, которые я делаю (special)
+                </Link><br/>
+                <Link to="/portfolio" className="text-blue-500 underline">
+                    Посмотреть заказы, которые я сделал (special)
                 </Link><br/>
                 {zn}
             </div>

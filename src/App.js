@@ -20,8 +20,12 @@ import ExploreOrderModer from "./pages/ExploreOrderModer";
 import ExploreOrder from "./pages/ExploreOrder";
 import ShowOrderLogs from "./pages/ShowOrderLogs";
 import ShowMyOrder from "./pages/ShowMyOrder";
-import FinishOrder from "./pages/FinishOrder";
+import StartWorkOrder from "./pages/StartWorkOrder";
 import GetAllOrdersSpecial from "./pages/GetAllOrdersSpecial";
+import WatchWhatIDo from "./pages/WatchWhatIDo";
+import FinishOrder from "./pages/finishOrder";
+import RejectOrder from "./pages/RejectOrder";
+import Portfolio from "./pages/Portfolio";
 
 function App() {
     return (
@@ -48,7 +52,11 @@ function App() {
                 <Route path="/exploreOrder/:order_id" element={<ExploreOrder/>} />
                 <Route path="/showOrderLogs/:order_id" element={<ShowOrderLogs/>} />
                 <Route path="/showMyOrder/:order_id" element={<ShowMyOrder/>} />
+                <Route path="/startWorkOrder/:order_id" element={<StartWorkOrder/>} />
+                <Route path="/watchWhatIDo" element={<WatchWhatIDo/>} />
                 <Route path="/finishOrder/:order_id" element={<FinishOrder/>} />
+                <Route path="/rejectOrder/:order_id" element={<RejectOrder/>} />
+                <Route path="/portfolio" element={<Portfolio/>} />
             </Routes>
         </Router>
     );
