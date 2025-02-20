@@ -24,6 +24,9 @@ export default function Home() {
                 <Link to="/getAllOrdersModer" className="text-blue-500 underline">
                     Посмотреть заказы (moder)
                 </Link><br/>
+                <Link to="/getAllOrdersSpecial" className="text-blue-500 underline">
+                    Посмотреть заказы (special)
+                </Link><br/>
                 {zn}
             </div>
         </Layout>

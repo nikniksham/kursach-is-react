@@ -20,6 +20,8 @@ import ExploreOrderModer from "./pages/ExploreOrderModer";
 import ExploreOrder from "./pages/ExploreOrder";
 import ShowOrderLogs from "./pages/ShowOrderLogs";
 import ShowMyOrder from "./pages/ShowMyOrder";
+import FinishOrder from "./pages/FinishOrder";
+import GetAllOrdersSpecial from "./pages/GetAllOrdersSpecial";
 
 function App() {
     return (
@@ -41,10 +43,12 @@ function App() {
                 <Route path="/createOrder" element={<CreateOrders/>} />
                 <Route path="/getAllOrders" element={<GetAllOrders/>} />
                 <Route path="/getAllOrdersModer" element={<GetAllOrdersModer/>} />
+                <Route path="/getAllOrdersSpecial" element={<GetAllOrdersSpecial/>} />
                 <Route path="/exploreOrderModer/:order_id" element={<ExploreOrderModer/>} />
                 <Route path="/exploreOrder/:order_id" element={<ExploreOrder/>} />
                 <Route path="/showOrderLogs/:order_id" element={<ShowOrderLogs/>} />
                 <Route path="/showMyOrder/:order_id" element={<ShowMyOrder/>} />
+                <Route path="/finishOrder/:order_id" element={<FinishOrder/>} />
             </Routes>
         </Router>
     );
