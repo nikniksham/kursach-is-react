@@ -17,7 +17,7 @@ export default function TestGetFromAdminAndUser() {
             if (!response.ok) {
                 throw new Error("Неверный пароль или логин");
             }
-            console.log(response)
+            // console.log(response)
             setFromAdmin("ok")
         } catch (error) {
             setFromAdmin("Ne ok")
@@ -35,7 +35,7 @@ export default function TestGetFromAdminAndUser() {
             if (!response.ok) {
                 throw new Error("Неверный пароль или логин");
             }
-            console.log(response)
+            // console.log(response)
             setFromUser("ok")
         } catch (error) {
             setFromUser("Ne ok")

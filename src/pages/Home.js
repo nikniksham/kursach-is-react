@@ -9,8 +9,8 @@ export default function Home() {
         <Layout>
             <div>
                 <h1>Домашняя страница</h1>
-                <Link to="/getAllUsers" className="text-blue-500 underline">
-                    Посмотреть пользователей
+                <Link to="/adminPanel" className="text-blue-500 underline">
+                    Админская панель
                 </Link><br/>
                 <Link to="/test" className="text-blue-500 underline">
                     Тесты

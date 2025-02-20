@@ -7,6 +7,7 @@ import {getCookie} from "../components/MyCookie";
 export default function MakeApplication() {
     const [pochemy, setPochemy] = useState("");
     const [message, setMessage] = useState("");
+    const [vibor, setVibor] = useState(null);
 
     let token = getCookie("token")
     let decodedPayload = null
@@ -32,7 +33,7 @@ export default function MakeApplication() {
 
     if (token != null) {
         decodedPayload = JSON.parse(atob(token.split('.')[1]));
-        console.log(decodedPayload)
+        // console.log(decodedPayload)
         decodedPayload.roles.forEach((role) => {
             let del_el = null
             options.forEach((opt) => {
@@ -49,31 +50,29 @@ export default function MakeApplication() {
     }
 
     const sendApplication = async (e) => {
-        // e.preventDefault();
-        // setMessage("");
-        //
-        // const user = {login, password};
-        //
-        // try {
-        //     if (password !== password2) {
-        //         throw new Error("Пароли не совпадают")
-        //     }
-        //     const response = await fetch("http://localhost:8080/api/auth/register", {
-        //         method: "POST",
-        //         headers: {"Content-Type": "application/json"},
-        //         body: JSON.stringify(user),
-        //     });
-        //
-        //     if (!response.ok) {
-        //         throw new Error("Ошибка при регистрации");
-        //     }
-        //     setMessage("Регистрация прошла успешно!");
-        //     setLogin("");
-        //     setPassword("");
-        //     navigate("/login")
-        // } catch (error) {
-        //     setMessage(error.message);
-        // }
+        e.preventDefault();
+        setMessage("");
+
+        const appl = {pochemy, vibor};
+        try {
+            if (vibor === null) {
+                throw new Error("Выберите роль")
+            }
+            if (pochemy.length === 0) {
+                throw new Error("Укажите причину, почему именно вы должны получить эту роль")
+            }
+            const response = await fetch("http://localhost:8080/api/user/application/send", {
+                method: "POST",
+                headers: {"Content-Type": "application/json", Authorization: `Bearer ${token}`},
+                body: JSON.stringify(appl),
+            });
+            if (!response.ok) {
+                throw new Error("Чёто пошло не по плану");
+            }
+            setMessage(await response.text());
+        } catch (error) {
+            setMessage(error.message);
+        }
     };
 
     return (
@@ -82,7 +81,7 @@ export default function MakeApplication() {
                 <form action="sendApplication">
                     <textarea placeholder="Почему именно вы?" value={pochemy} onChange={(e) => setPochemy(e.target.value)}
                            required/>
-                    <Dropdown options={options} title={"Вы хотите стать: "}/>
+                    <Dropdown options={options} title={"Вы хотите стать: "} func={setVibor}/>
                     <button onClick={sendApplication}>Подать заявку</button>
                     {message && <p className="mt-2 text-red-500">{message}</p>}
                 </form>

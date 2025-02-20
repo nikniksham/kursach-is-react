@@ -1,46 +1,37 @@
 import React, {useEffect} from "react";
 import {useState} from "react"
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Layout from "./Layout";
 import {getCookie} from "../components/MyCookie";
 
-export default function GetAllUsers() {
-    const [users, setUsers] = useState([]);
+export default function ShowApplicationLogs() {
+    const [logs, setLogs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const { application_id } = useParams();
+
     let token = getCookie("token")
     const navigate = useNavigate();
+
     useEffect(() => {
         if (token == null) {
             navigate("/login")
         }
-        fetchUsers()
+        getAllLogs()
     }, [navigate, token])
 
-    const fetchUsers = async () => {
+    const getAllLogs = async () => {
         setLoading(true);
         setError(null);
         try {
             let token = getCookie("token");
-            const response = await fetch("http://localhost:8080/api/admin/user/all", {
+            const response = await fetch("http://localhost:8080/api/admin/application/getAllLogs?application_id="+application_id, {
                 method: "GET",
                 headers: {Authorization: `Bearer ${token}`}
             });
-
-            if (!response.ok) {
-                throw new Error("Нет прав на это");
-            }
             const data = await response.json();
-            data.forEach((elem) => {
-                let roles = []
-                elem["roles"].forEach((role) => {
-                    roles.push(role.id)
-                })
-                elem["ro"] = roles
-            })
-            setUsers(data);
-            // console.log(data)
+            setLogs(data)
         } catch (error) {
             setError(error.message);
         } finally {
@@ -51,31 +42,29 @@ export default function GetAllUsers() {
     return (
         <Layout>
             <div className="p-4">
-                <h1>Все юзеры:</h1>
+                <h1>Все логи:</h1>
                 <Link to="/adminPanel" className="text-blue-500 underline">
                     Вернуться в админскую панель
                 </Link><br/>
 
                 {error && <p className="text-red-500 mt-2">Ошибка: {error}</p>}
-                {users.length > 0 && (
+                {logs.length > 0 && (
                     <table className="mt-4 w-full border">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Логин</th>
-                            <th>Права специалиста</th>
-                            <th>Права модератора</th>
-                            <th>Права админа</th>
+                            <th>Кто сделал</th>
+                            <th>Что сделал</th>
+                            <th>Дата</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {users.map((user) => (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.login}</td>
-                                <td>{user["ro"].includes(4) ? (<p>✅</p>) : (<p>❌</p>)}</td>
-                                <td>{user["ro"].includes(2) ? (<p>✅</p>) : (<p>❌</p>)}</td>
-                                <td>{user["ro"].includes(3) ? (<p>✅</p>) : (<p>❌</p>)}</td>
+                        {logs.map((log) => (
+                            <tr key={log.id}>
+                                <td>{log.id}</td>
+                                <td>{log.user.id}</td>
+                                <td>{log.statusApplications.status}</td>
+                                <td>{log.creationDate}</td>
                             </tr>
                         ))}
                         </tbody>
