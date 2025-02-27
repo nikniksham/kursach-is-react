@@ -6,7 +6,6 @@ import {getCookie} from "../components/MyCookie";
 
 export default function GetAllUsers() {
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     let token = getCookie("token")
@@ -19,7 +18,6 @@ export default function GetAllUsers() {
     }, [navigate, token])
 
     const fetchUsers = async () => {
-        setLoading(true);
         setError(null);
         try {
             let token = getCookie("token");
@@ -34,17 +32,14 @@ export default function GetAllUsers() {
             const data = await response.json();
             data.forEach((elem) => {
                 let roles = []
-                elem["roles"].forEach((role) => {
+                elem["rolesDTO"].forEach((role) => {
                     roles.push(role.id)
                 })
                 elem["ro"] = roles
             })
             setUsers(data);
-            // console.log(data)
         } catch (error) {
             setError(error.message);
-        } finally {
-            setLoading(false);
         }
     };
 

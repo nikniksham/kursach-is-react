@@ -63,8 +63,8 @@ export default function ShowOrderLogs() {
                         {logs.map((log) => (
                             <tr key={log.id}>
                                 <td>{log.id}</td>
-                                <td>{log.user.id}</td>
-                                <td>{log.statusOrders.status}</td>
+                                <td>{log.userDTO.id}</td>
+                                <td>{log.statusOrdersDTO.status}</td>
                                 <td>{log.creationDate}</td>
                             </tr>
                         ))}

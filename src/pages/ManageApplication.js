@@ -92,7 +92,7 @@ export default function ManageApplication() {
         <Layout>
             <div className="p-4">
                 {application !== null ? (
-                    <h3>Просмотр заявки на {application.roles.name}:</h3>
+                    <h3>Просмотр заявки на {application.roleDTO.name}:</h3>
                 ) : null}
                 <Link to="/getAllApplications" className="text-blue-500 underline">
                     Вернуться ко всем заявкам
@@ -100,8 +100,8 @@ export default function ManageApplication() {
 
                 {application !== null ? (
                         <div>
-                            <p>Просящий: {application.user.login}</p>
-                            <p>Статус заявки: {application.statusApplications.status}</p>
+                            <p>Просящий: {application.userDTO.login}</p>
+                            <p>Статус заявки: {application.statusApplicationsDTO.status}</p>
                             <p>Текст заявки: {application.text}</p>
                             <textarea placeholder="Причина отказа:" value={whyNot} onChange={(e) => setWhyNot(e.target.value)}/>
                             <button onClick={rejectApplication}>Отклонить</button>

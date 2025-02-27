@@ -62,8 +62,8 @@ export default function ShowApplicationLogs() {
                         {logs.map((log) => (
                             <tr key={log.id}>
                                 <td>{log.id}</td>
-                                <td>{log.user.id}</td>
-                                <td>{log.statusApplications.status}</td>
+                                <td>{log.userDTO.id}</td>
+                                <td>{log.statusApplicationsDTO.status}</td>
                                 <td>{log.creationDate}</td>
                             </tr>
                         ))}

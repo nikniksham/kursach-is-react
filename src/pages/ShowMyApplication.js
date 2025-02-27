@@ -54,7 +54,7 @@ export default function ShowMyApplication(props) {
             });
             const data = await response.json();
             setPochemy(data.text)
-            setStatus(data.statusApplications.status)
+            setStatus(data.statusApplicationsDTO.status)
         } catch (error) {
         }
     };

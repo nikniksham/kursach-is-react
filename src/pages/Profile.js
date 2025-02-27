@@ -60,13 +60,13 @@ export default function Profile() {
             });
             const data = await response.json();
             data.forEach((application) => {
-                if (!(application["statusApplications"] in [2, 4])) {
-                    aps_dict_local[application["roles"]["name"]] = {id: application["id"], appl: application}
-                    if (application["roles"]["name"] === "ROLE_SPECIAL") {
+                if (!(application["statusApplicationsDTO"] in [2, 4])) {
+                    aps_dict_local[application["roleDTO"]["name"]] = {id: application["id"], appl: application}
+                    if (application["roleDTO"]["name"] === "ROLE_SPECIAL") {
                         setSpecialAp(application)
-                    } else if (application["roles"]["name"] === "ROLE_MODER") {
+                    } else if (application["roleDTO"]["name"] === "ROLE_MODER") {
                         setModerAp(application)
-                    } else if (application["roles"]["name"] === "ROLE_ADMIN") {
+                    } else if (application["roleDTO"]["name"] === "ROLE_ADMIN") {
                         setAdminAp(application)
                     }
                     // console.log("asfafsafsasf")
@@ -114,9 +114,9 @@ export default function Profile() {
                     </Link>
                 ) : null
                 }
-                {Object.keys(apsDict).includes("ROLE_SPECIAL") && [1, 3].includes(apsDict["ROLE_SPECIAL"].appl["statusApplications"]["id"]) ? (
+                {Object.keys(apsDict).includes("ROLE_SPECIAL") && [1, 3].includes(apsDict["ROLE_SPECIAL"].appl["statusApplicationsDTO"]["id"]) ? (
                     <Link to={`/showMyApplication/${specialAp.id}`} className="text-blue-500 underline">
-                        Заявка на специалиста: {statusi_appl[apsDict["ROLE_SPECIAL"].appl["statusApplications"]["id"]]}
+                        Заявка на специалиста: {statusi_appl[apsDict["ROLE_SPECIAL"].appl["statusApplicationsDTO"]["id"]]}
                     </Link>
                 ) : null
                 }<br/>
@@ -126,9 +126,9 @@ export default function Profile() {
                     </Link>
                 ) : null
                 }
-                {Object.keys(apsDict).includes("ROLE_MODER") && [1, 3].includes(apsDict["ROLE_MODER"].appl["statusApplications"]["id"]) ? (
+                {Object.keys(apsDict).includes("ROLE_MODER") && [1, 3].includes(apsDict["ROLE_MODER"].appl["statusApplicationsDTO"]["id"]) ? (
                     <Link to={`/showMyApplication/${moderAp.id}`} className="text-blue-500 underline">
-                        Заявка на модератора: {statusi_appl[apsDict["ROLE_MODER"].appl["statusApplications"]["id"]]}
+                        Заявка на модератора: {statusi_appl[apsDict["ROLE_MODER"].appl["statusApplicationsDTO"]["id"]]}
                     </Link>
                 ) : null
                 }<br/>
@@ -138,9 +138,9 @@ export default function Profile() {
                     </Link>
                 ) : null
                 }
-                {Object.keys(apsDict).includes("ROLE_ADMIN") && [1, 3].includes(apsDict["ROLE_ADMIN"].appl["statusApplications"]["id"]) ? (
+                {Object.keys(apsDict).includes("ROLE_ADMIN") && [1, 3].includes(apsDict["ROLE_ADMIN"].appl["statusApplicationsDTO"]["id"]) ? (
                     <Link to={`/showMyApplication/${adminAp.id}`} className="text-blue-500 underline">
-                        Заявка на админна: {statusi_appl[apsDict["ROLE_ADMIN"].appl["statusApplications"]["id"]]}
+                        Заявка на админна: {statusi_appl[apsDict["ROLE_ADMIN"].appl["statusApplicationsDTO"]["id"]]}
                     </Link>
                 ) : null
                 }
@@ -164,8 +164,8 @@ export default function Profile() {
                             <td>{ord.publication_date}</td>
                             <td>{ord.target_isu_num}</td>
                             <td>{ord.target_name}</td>
-                            <td>{ord.statusOrders.status + ": " + statusi_ord[ord.statusOrders.id]}</td>
-                            {ord.statusOrders.id === 1 || ord.statusOrders.id === 2 ? (
+                            <td>{ord.statusOrdersDTO.status + ": " + statusi_ord[ord.statusOrdersDTO.id]}</td>
+                            {ord.statusOrdersDTO.id === 1 || ord.statusOrdersDTO.id === 2 ? (
                                 <td>
                                     <Link to={`/showMyOrder/${ord.id}`} className="text-blue-500 underline">
                                         Изменить заказ

@@ -51,8 +51,8 @@ export default function ExploreOrder() {
 
                 {order != null ? (
                     <div>
-                        <p>Просящий: {order.user.login}</p>
-                        <p>Статус заказа: {order.statusOrders.status + " " + statusi[order.statusOrders.id]}</p>
+                        <p>Просящий: {order.userDTO.login}</p>
+                        <p>Статус заказа: {order.statusOrdersDTO.status + " " + statusi[order.statusOrdersDTO.id]}</p>
                         <p>Номер ису цели: {order.target_isu_num}</p>
                         <p>Имя цели: {order.target_name}</p>
                         <p>Текст заказа: {order.description}</p>

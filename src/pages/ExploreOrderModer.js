@@ -134,12 +134,12 @@ export default function ExploreOrderModer() {
 
                 {order != null ? (
                     <div>
-                        <p>Просящий: {order.user.login}</p>
-                        <p>Статус заказа: {order.statusOrders.status + " " + statusi[order.statusOrders.id]}</p>
+                        <p>Просящий: {order.userDTO.login}</p>
+                        <p>Статус заказа: {order.statusOrdersDTO.status + " " + statusi[order.statusOrdersDTO.id]}</p>
                         <p>Номер ису цели: {order.target_isu_num}</p>
                         <p>Имя цели: {order.target_name}</p>
                         <p>Текст заказа: {order.description}</p>
-                        {[1, 2].includes(order.statusOrders.id) ? (
+                        {[1, 2].includes(order.statusOrdersDTO.id) ? (
                             <div>
                                 <textarea placeholder="Причина отказа:" value={whyNot}
                                           onChange={(e) => setWhyNot(e.target.value)}/>
@@ -147,7 +147,7 @@ export default function ExploreOrderModer() {
                                 <button onClick={approveOrder}>Принять</button>
                             </div>
                         ) : null}
-                        {[5].includes(order.statusOrders.id) ? (
+                        {[5].includes(order.statusOrdersDTO.id) ? (
                             <div>
                                 <button onClick={makeOrderOk}>Подтвердить выполнение ✅</button>
                                 <button onClick={makeOrderBad}>Отказать ❌</button>

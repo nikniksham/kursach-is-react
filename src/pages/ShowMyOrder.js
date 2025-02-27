@@ -60,7 +60,7 @@ export default function ShowMyOrder(props) {
             setOrder(data)
             setTargetIsuNum(data.target_isu_num)
             setTargetName(data.target_name)
-            setStatus(data.statusOrders.status)
+            setStatus(data.statusOrdersDTO.status)
         } catch (error) {
         }
     };

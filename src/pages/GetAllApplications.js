@@ -70,11 +70,11 @@ export default function GetAllApplications() {
                         {applications.map((appl) => (
                             <tr key={appl.id}>
                                 <td>{appl.id}</td>
-                                <td>{appl.user.login}</td>
-                                <td>{appl.roles.name}</td>
-                                <td>{appl.statusApplications.status + " >>> " + statusi[appl.statusApplications.id]}</td>
+                                <td>{appl.userDTO.login}</td>
+                                <td>{appl.roleDTO.name}</td>
+                                <td>{appl.statusApplicationsDTO.status + " >>> " + statusi[appl.statusApplicationsDTO.id]}</td>
                                 <td>
-                                    { [1, 3].includes(appl.statusApplications.id) ? (
+                                    { [1, 3].includes(appl.statusApplicationsDTO.id) ? (
                                         <Link to={`/manageApplication/${appl.id}`} className="text-blue-500 underline">
                                             Отреагировать
                                         </Link>

@@ -53,9 +53,10 @@ export default function StartWorkOrder() {
                 method: "GET",
                 headers: {Authorization: `Bearer ${token}`}
             });
-            const data = await response.json();
-            setOrder(data)
+            const data = await response.text();
+            setMessage(data)
         } catch (error) {
+            setError(error.message)
             // setError(error.message);
         }
     };
@@ -73,8 +74,8 @@ export default function StartWorkOrder() {
 
                 {order != null ? (
                     <div>
-                        <p>Просящий: {order.user.login}</p>
-                        <p>Статус заказа: {order.statusOrders.status + " " + statusi[order.statusOrders.id]}</p>
+                        <p>Просящий: {order.userDTO.login}</p>
+                        <p>Статус заказа: {order.statusOrdersDTO.status + " " + statusi[order.statusOrdersDTO.id]}</p>
                         <p>Номер ису цели: {order.target_isu_num}</p>
                         <p>Имя цели: {order.target_name}</p>
                         <p>Текст заказа: {order.description}</p>

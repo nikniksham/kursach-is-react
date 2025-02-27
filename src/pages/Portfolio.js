@@ -69,7 +69,7 @@ export default function Portfolio() {
                                 <td>{order.id}</td>
                                 <td>{order.target_isu_num}</td>
                                 <td>{order.target_name}</td>
-                                <td>{order.statusOrders.status + " >>> " + statusi[order.statusOrders.id]}</td>
+                                <td>{order.statusOrdersDTO.status + " >>> " + statusi[order.statusOrdersDTO.id]}</td>
                                 <td>
                                     <Link to={`/exploreOrder/${order.id}`} className="text-blue-500 underline">
                                         Подробнее
