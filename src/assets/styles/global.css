@@ -20,13 +20,16 @@
     --visited-hover: #8c839b; /* Затемненный оттенок посещенной ссылки */
 }
 
-/* Базовые стили */
-body {
+
+/* Фиксация футера внизу */
+html, body {
     font-family: Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Контейнер для контента */
@@ -48,7 +51,7 @@ p {
 
 /* Стили для ссылок */
 a {
-    color: var(--text-color);
+    color: var(--visited-link);
     text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
@@ -104,4 +107,71 @@ input, textarea {
 input:focus, textarea:focus {
     outline: none;
     border-color: var(--hover-color);
+}
+
+
+/* Контентная часть должна растягиваться */
+.main-content {
+    flex: 1;
+}
+
+/* Стили для footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 15px;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%; /* Растягиваем таблицу на всю ширину */
+    border-collapse: collapse; /* Убираем двойные границы */
+    background-color: var(--secondary-color); /* Фон таблицы */
+    color: var(--text-color); /* Цвет текста */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Заголовки таблицы */
+thead {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+th, td {
+    padding: 12px; /* Отступы внутри ячеек */
+    text-align: left; /* Выравнивание текста */
+    border: 1px solid var(--border-color); /* Границы */
+}
+
+/* Чередующиеся строки */
+tr:nth-child(even) {
+    background-color: #3a3a3a; /* Темно-серый */
+}
+
+tr:nth-child(odd) {
+    background-color: #2a2a2a; /* Чуть светлее */
+}
+
+/* Эффект при наведении */
+tr:hover {
+    background-color: var(--hover-color); /* Подсветка строки */
+    transition: background 0.3s ease-in-out;
+}
+
+/* Центрирование текста в заголовках */
+th {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Если таблица слишком широкая, делаем прокрутку */
+.table-wrapper {
+    overflow-x: auto;
 }

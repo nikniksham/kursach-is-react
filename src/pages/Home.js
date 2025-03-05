@@ -1,10 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {getCookie} from "../components/MyCookie";
 import Layout from './Layout';
 
 export default function Home() {
-    let zn = getCookie("token");
     return (
         <Layout>
             <div>
@@ -33,7 +31,6 @@ export default function Home() {
                 <Link to="/portfolio" className="text-blue-500 underline">
                     Посмотреть заказы, которые я сделал (special)
                 </Link><br/>
-                {zn}
             </div>
         </Layout>
     );

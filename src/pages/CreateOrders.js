@@ -28,7 +28,7 @@ export default function CreateOrders() {
             if (targetName.length === 0) {
                 throw new Error("Укажите имя цели")
             }
-            if (!/^\d{1,10}$/.test(targetIsuNum)) {
+            if (!/^\d+$/.test(targetIsuNum)) {
                 throw new Error("Укажите номер ису цели (число)")
             }
             if (targetIsuNum.length > 10) {

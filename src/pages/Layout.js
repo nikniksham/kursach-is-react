@@ -4,11 +4,13 @@ import Footer from './Footer';
 
 const Layout = ({ children }) => {
     return (
-        <div>
+        <spe id="root">
             <Header />
-            <main>{children}</main>
+            <div className="main-content">
+                <main>{children}</main>
+            </div>
             <Footer />
-        </div>
+        </spe>
     );
 };
 
