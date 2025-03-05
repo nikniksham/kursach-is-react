@@ -26,6 +26,7 @@ import WatchWhatIDo from "./pages/WatchWhatIDo";
 import FinishOrder from "./pages/finishOrder";
 import RejectOrder from "./pages/RejectOrder";
 import Portfolio from "./pages/Portfolio";
+import SetNewPassword from "./pages/SetNewPassword";
 
 function App() {
     return (
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/finishOrder/:order_id" element={<FinishOrder/>} />
                 <Route path="/rejectOrder/:order_id" element={<RejectOrder/>} />
                 <Route path="/portfolio" element={<Portfolio/>} />
+                <Route path="/set_new_password" element={<SetNewPassword/>} />
             </Routes>
         </Router>
     );

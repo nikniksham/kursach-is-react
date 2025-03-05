@@ -102,6 +102,9 @@ export default function Profile() {
         <Layout>
             <div className="p-4">
                 <h2 className="text-xl font-bold mb-2">Профиль пользователя: {username}</h2>
+                <Link to={`/set_new_password`} className="text-blue-500 underline">
+                    Задать новый пароль
+                </Link>
                 <h3>Роли:</h3>
                 <ul>
                     {roles.map((role, index) => (
