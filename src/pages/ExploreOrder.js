@@ -33,6 +33,9 @@ export default function ExploreOrder() {
                 method: "GET",
             });
             const data = await response.json();
+            if (data["message"] != null) {
+                throw new Error(data.message)
+            }
             setOrder(data)
         } catch (error) {
             setError(error.message);

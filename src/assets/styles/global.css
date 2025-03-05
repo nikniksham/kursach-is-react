@@ -16,7 +16,8 @@
     --border-color: #666; /* Граница */
     --disabled-color: #888; /* Отключенные элементы */
     --hover-color: #444; /* Цвет при наведении */
-    --visited-link: #b39ddb; /* Светло-серо-фиолетовый цвет для посещенных ссылок */
+    --visited-link: #c984ec; /* Светло-серо-фиолетовый цвет для посещенных ссылок */
+    --visited-hover: #8c839b; /* Затемненный оттенок посещенной ссылки */
 }
 
 /* Базовые стили */
@@ -58,6 +59,10 @@ a:hover {
 
 a:visited {
     color: var(--visited-link);
+}
+
+a:visited:hover {
+    color: var(--visited-hover);
 }
 
 /* Кнопки */

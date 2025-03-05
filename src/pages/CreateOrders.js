@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import Layout from "./Layout";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getCookie} from "../components/MyCookie";
 
 export default function CreateOrders() {
@@ -8,6 +8,7 @@ export default function CreateOrders() {
     const [targetName, setTargetName] = useState("");
     const [description, setDescription] = useState("");
     const [message, setMessage] = useState("");
+    const [link, setLink] = useState("");
 
     let token = getCookie("token")
 
@@ -22,6 +23,7 @@ export default function CreateOrders() {
     const createOrder = async (e) => {
         e.preventDefault();
         setMessage("");
+        setLink("")
         try {
             if (targetName.length === 0) {
                 throw new Error("Укажите имя цели")
@@ -45,7 +47,13 @@ export default function CreateOrders() {
             if (!response.ok) {
                 throw new Error("Чёто пошло не по плану");
             }
-            setMessage(await response.text());
+            let res = await response.text()
+            if (/^\d+$/.test(res)) {
+                setMessage("Заказ на эту цель уже существует")
+                setLink("/exploreOrder/"+res)
+            } else {
+                setMessage(res);
+            }
         } catch (error) {
             setMessage(error.message);
         }
@@ -61,6 +69,11 @@ export default function CreateOrders() {
                     <button onClick={createOrder}>Сделать заказ</button>
                     {message && <p className="mt-2 text-red-500">{message}</p>}
                 </form>
+                {link !== "" ?
+                    <Link to={link} className="text-blue-500 underline">
+                        Посмотреть заказ на эту цель
+                    </Link>
+                : null}
             </div>
         </Layout>
     );

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import Layout from "./Layout";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {getCookie} from "../components/MyCookie";
 
 export default function ShowMyOrder(props) {
@@ -11,6 +11,8 @@ export default function ShowMyOrder(props) {
     const [order, setOrder] = useState("");
     const [targetIsuNum, setTargetIsuNum] = useState("");
     const [targetName, setTargetName] = useState("");
+    const [link, setLink] = useState("");
+
 
     let token = getCookie("token")
 
@@ -91,7 +93,14 @@ export default function ShowMyOrder(props) {
             if (!response.ok) {
                 throw new Error("Чёто пошло не по плану");
             }
-            setMessage(await response.text());
+
+            let res = await response.text()
+            if (/^\d+$/.test(res)) {
+                setMessage("Заказ на эту цель уже существует")
+                setLink("/exploreOrder/"+res)
+            } else {
+                setMessage(res);
+            }
         } catch (error) {
             setMessage(error.message);
         }
@@ -112,6 +121,11 @@ export default function ShowMyOrder(props) {
                     <button onClick={sendNewOrder}>Обновить заказ</button>
                     {message && <p className="mt-2 text-red-500">{message}</p>}
                 </form>
+                {link !== "" ?
+                    <Link to={link} className="text-blue-500 underline">
+                        Посмотреть заказ на эту цель
+                    </Link>
+                    : null}
             </div>
         </Layout>
     );
