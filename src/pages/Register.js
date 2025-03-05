@@ -31,7 +31,7 @@ export default function Register() {
             });
 
             if (!response.ok) {
-                throw new Error("Ошибка при регистрации");
+                throw new Error(JSON.parse(await response.text())["message"]);
             }
             setMessage("Регистрация прошла успешно!");
             setLogin("");

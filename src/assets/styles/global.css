@@ -1,0 +1,102 @@
+/* src/assets/styles/global.css */
+
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Глобальные переменные */
+:root {
+    --bg-color: #1e1e1e; /* Темно-серый фон */
+    --text-color: #f5f5f5; /* Светлый текст */
+    --primary-color: #333; /* Основной цвет */
+    --secondary-color: #555; /* Дополнительный серый */
+    --border-color: #666; /* Граница */
+    --disabled-color: #888; /* Отключенные элементы */
+    --hover-color: #444; /* Цвет при наведении */
+    --visited-link: #b39ddb; /* Светло-серо-фиолетовый цвет для посещенных ссылок */
+}
+
+/* Базовые стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Контейнер для контента */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Общие стили для элементов */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+/* Стили для ссылок */
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+a:visited {
+    color: var(--visited-link);
+}
+
+/* Кнопки */
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+}
+
+button:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+}
+
+/* Отступы между элементами */
+section, article, div {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+/* Поля ввода */
+input, textarea {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--hover-color);
+}
